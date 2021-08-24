@@ -10,8 +10,8 @@
       "type": "pwa-node",
       "program": "${file}",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "/usr/local/bin/deno",
-      "runtimeArgs": ["run", "--inspect", "--allow-all"]
+      "runtimeExecutable": "deno",
+      "runtimeArgs": ["run"]
     }
   ]
 }
