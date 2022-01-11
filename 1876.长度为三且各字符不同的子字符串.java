@@ -14,19 +14,32 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public int countGoodSubstrings(String s) {
-
+        int k = 3;
         int n = s.length();
+        int start = 0;
         int count = 0;
 
         if (n < 3) {
             return count;
         }
 
-        for (int i = 0; i < n - 2; i++) {
-            if (s.charAt(i) != s.charAt(i + 1) && s.charAt(i) != s.charAt(i + 2)
-                    && s.charAt(i + 1) != s.charAt(i + 2)) {
+        while (start < n - k + 1) {
+
+            HashSet<String> set = new HashSet<>();
+            int i = start;
+            while (i < start + k) {
+                char temp = s.charAt(i);
+                if (set.contains(temp + "")) {
+                    break;
+                }
+                set.add(temp + "");
+                i++;
+            }
+
+            if (set.size() == 3) {
                 count++;
             }
+            start++;
         }
         return count;
     }
