@@ -17,21 +17,26 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode reversed = reverse(head);
-        ListNode p1 = reversed;
-        ListNode p2 = head;
+        if (head == null)
+            return true;
 
-        while (p1 != null &&
-                p1.next != null) {
+        // 找到头尾节点
+        ListNode firstHalfEnd = endOfFirstHalf(head);
+        ListNode secondHalfStart = reverse(firstHalfEnd.next);
 
+        // 把链表从中间分两半，反转后半部分，再对比回文
+
+        ListNode p1 = head;
+        ListNode p2 = secondHalfStart;
+        boolean result = true;
+        while (result && p2 != null) {
             if (p1.val != p2.val) {
-                return false;
+                result = false;
             }
-
             p1 = p1.next;
             p2 = p2.next;
         }
-        return true;
+        return result;
     }
 
     public ListNode reverse(ListNode node) {
@@ -42,6 +47,16 @@ class Solution {
         node.next.next = node;
         node.next = null;
         return curr;
+    }
+
+    private ListNode endOfFirstHalf(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }
 // @lc code=end
